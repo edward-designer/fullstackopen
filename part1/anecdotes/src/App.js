@@ -15,7 +15,10 @@ const App = () => {
   const [points, setPoints] = useState({})
 
   const onClickHandlerNext = () => {
-    const random = Math.floor(Math.random() *anecdotes.length)
+    let random;
+    do{
+       random = Math.floor(Math.random() *anecdotes.length)
+    } while (selected===random)
     setSelected(random)
   }
 
