@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h2 {
+    font-size:2em;
+    font-weight:bold;
+    color: darkblue;
+    padding: 0.5em;
+    margin-top:1em;
+}
+
+input {
+    border: 1px solid #ccc;
+}
+
+div {
+    margin: 1em;
+}
+
+button[type=submit] {
+    background-color: darkblue;
+    color: white;
+    padding:0.5em 2em;
+}
+
+button[type=submit]:hover, button[type=button]:hover, button[type=button]:hover:before {
+    background-color: rgb(15, 15, 202);
+}
+
+button[type=button] {
+    background-color: darkblue;
+    color: white;
+    padding:0 1em;
+    position: relative;
+    margin-left: 2em;
+    margin-bottom: 0.5em;
+}
+
+button[type=button]:before {
+    content: " ";
+    display: block;
+    transform: rotate(45deg);
+    background-color: darkblue;
+    width: 1em;
+    height: 1em;
+    left:-0.5em;
+    top: 0.25em;
+    position:absolute;
+}

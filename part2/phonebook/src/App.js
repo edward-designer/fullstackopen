@@ -69,16 +69,16 @@ const App = () => {
   }
   const personsFormProps = {newName, newNumber,onSubmitHandler,onNameChangeHandler,onNumberChangeHandler}
 
-  console.log(message);
-
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2 className="text-2xl bold text-blue-900">Phonebook</h2>
       <Notification message={message} setMessage={setMessage} />
       <Filter searchText={searchText} seachChangeHandler={seachChangeHandler} />
-      <h2>Add a New Contact</h2>
+      <hr />
+      <h2 className="text-2xl bold text-blue-900">Add a New Contact</h2>
       <PersonsForm {...personsFormProps}/>
-      <h2>Numbers</h2>
+      <hr />
+      <h2 className="text-2xl bold text-blue-900">Numbers</h2>
       <Persons searchText={searchText} persons={persons} setMessage={setMessage} deleteHandler={deleteHandler}/>
     </div>
   )
