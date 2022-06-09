@@ -46,16 +46,16 @@ const App = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault()
     if(!newName||!newNumber){alert(`Name and/or phone number cannot be empty`); return}
-    if(persons.some(person => person.name === newName && person.phone === newNumber)){alert(`${newName} is already added to phonebook`); return}
+    if(persons.some(person => person.name === newName && person.phone === newNumber)){alert(`${newName} is already added to phonebook with the same number.`); return}
     if(persons.some(person => person.name === newName && person.phone !== newNumber)){
       if(window.confirm(`${newName} is already added to phonebook, replace with the new number ${newNumber}?`)){
           const personID = persons.find(person=>person.name===newName&&person.phone!==newNumber).id;
           const updatedPerson = {name: newName, number: newNumber, id: personID};
           serverComm.update(personID,updatedPerson).then(response=>{setPersons(persons.filter(persons => persons.id !== personID).concat(updatedPerson));setNewName('');setNewNumber('');setMessage({success:`Updated the phone number for ${newName}`})})
-          .catch(err => console.error(err))
+          .catch(err => setMessage(err.response.data))
       }
     }else{
-      serverComm.create({name:newName, number:newNumber}).then(response=>{setNewName('');setNewNumber('');setPersons(persons.concat(response));setMessage({succeess:`Added ${newName}`});}).catch(err => console.error(err))
+      serverComm.create({name:newName, number:newNumber}).then(response=>{setNewName('');setNewNumber('');setPersons(persons.concat(response));setMessage({succeess:`Added ${newName}`});}).catch(err =>{setMessage(err.response.data)})
     }
   }
   const seachChangeHandler = (e) => {
@@ -71,7 +71,7 @@ const App = () => {
 
   return (
     <div>
-      <h2 className="text-2xl bold text-blue-900">Phonebook</h2>
+      <h1 className="text-4xl bold text-blue-900">Phonebook</h1>
       <Notification message={message} setMessage={setMessage} />
       <Filter searchText={searchText} seachChangeHandler={seachChangeHandler} />
       <hr />
