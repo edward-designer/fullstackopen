@@ -18,6 +18,7 @@ npm install
     eslint --save-dev (npx eslint --init)
     dotenv (plus create .env at root)
     mongoose
+    jest --save-dev
 package.json
     "scripts": {
         "start": "node index.js",
