@@ -24,7 +24,7 @@ beforeEach(async () => {
 })
 
 describe('retrieving blogs', () => {
-    test('there are notes', async () => {
+    test('get the correct number of notes', async () => {
         const response = await api.get('/api/blogs')
         expect(response.body).toHaveLength(helper.initialBlogs.length)
     }, 10000)
