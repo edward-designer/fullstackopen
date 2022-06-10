@@ -16,19 +16,22 @@ bloglistRouter.get('/:id', async (request, response) => {
 bloglistRouter.post('/', async (request, response) => {
     const body = request.body
     const user = request.user
-    const blog = new Blog({
-        title: body.title,
-        author: body.author,
-        url: body.url,
-        likes: body.likes,
-        user: user.id
-    })
-    const result = await blog.save()
-    user.blogs = user.blogs.concat(result.id)
-    await user.save()
+    if(user){
+        const blog = new Blog({
+            title: body.title,
+            author: body.author,
+            url: body.url,
+            likes: body.likes,
+            user: user.id
+        })
+        const result = await blog.save()
+        user.blogs = user.blogs.concat(result.id)
+        await user.save()
 
-    response.status(201).json(result)
-
+        response.status(201).json(result)
+    }else{
+        response.status(401).json({ error: 'no authorization token' })
+    }
 })
 
 bloglistRouter.delete('/:id', async (request, response) => {

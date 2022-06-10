@@ -46,12 +46,14 @@ const userExtractor = async (request, response, next) => {
             return response.status(401).json({ error: 'token missing or invalid' })
         }
         request.user = await User.findById(decodedToken.id)
+    }else{
+        request.user = ''
     }
     next()
 }
 
 module.exports = {
-    requestLogger, 
+    requestLogger,
     unknownEndpoint,
     errorHandler,
     authorizationTokenExtractor,

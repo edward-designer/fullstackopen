@@ -115,6 +115,19 @@ describe('adding blogs', () => {
         expect(response.status).toEqual(201)
         expect(response.body.likes).toEqual(0)
     }, 10000)
+    test('if no authorization code no blog will be added', async () => {
+        const body = {
+            title: 'Testing',
+            author: 'Edward',
+            url: 'https://example.com',
+        }
+        const response = await api
+            .post('/api/blogs')
+            .set('Accept', 'application/json')
+            .send(body)
+
+        expect(response.status).toEqual(401)
+    }, 10000)
     test('blogs without a title is not added', async () => {
         const token = await helper.getUserToken()
         const body = {
