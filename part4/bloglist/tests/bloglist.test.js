@@ -43,9 +43,10 @@ describe('retrieving blogs', () => {
 
 describe('deleting blogs', () => {
     test('a blog can be deleted', async () => {
+        const token = await helper.getUserToken()
         const blogsAtStart = await helper.blogsInDb()
         const blogToDelete = blogsAtStart[0]
-        await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204)
+        await api.delete(`/api/blogs/${blogToDelete.id}`).set({ Authorization: token }).expect(204)
 
         const blogsAtEnd = await helper.blogsInDb()
         expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1)
@@ -55,8 +56,9 @@ describe('deleting blogs', () => {
     })
 })
 
-describe('updating likes', () => {
+describe('updating', () => {
     test('the number of likes can be updated', async () => {
+        const token = await helper.getUserToken()
         const blogsAtStart = await helper.blogsInDb()
         const blogToUpdate = blogsAtStart[0]
         const like = {
@@ -65,6 +67,7 @@ describe('updating likes', () => {
         await api
             .put(`/api/blogs/${blogToUpdate.id}`)
             .set('Accept', 'application/json')
+            .set({ Authorization: token })
             .send(like)
         const response = await api.get(`/api/blogs/${blogToUpdate.id}`)
         expect(response.body.likes).toEqual(0)
@@ -73,6 +76,7 @@ describe('updating likes', () => {
 
 describe('adding blogs', () => {
     test('blogs are added successfully and an ID is added', async () => {
+        const token = await helper.getUserToken()
         const body = {
             title: 'Testing',
             author: 'Edward',
@@ -82,6 +86,7 @@ describe('adding blogs', () => {
         const response = await api
             .post('/api/blogs')
             .set('Accept', 'application/json')
+            .set({ Authorization: token })
             .send(body)
 
         expect(response.status).toEqual(201)
@@ -95,6 +100,7 @@ describe('adding blogs', () => {
         expect(contents).toContain('Testing')
     }, 10000)
     test('if likes is missing, default to 0', async () => {
+        const token = await helper.getUserToken()
         const body = {
             title: 'Testing',
             author: 'Edward',
@@ -103,12 +109,14 @@ describe('adding blogs', () => {
         const response = await api
             .post('/api/blogs')
             .set('Accept', 'application/json')
+            .set({ Authorization: token })
             .send(body)
 
         expect(response.status).toEqual(201)
         expect(response.body.likes).toEqual(0)
     }, 10000)
     test('blogs without a title is not added', async () => {
+        const token = await helper.getUserToken()
         const body = {
             author: 'Edward',
             url: 'https://example.com',
@@ -117,6 +125,7 @@ describe('adding blogs', () => {
         await api
             .post('/api/blogs')
             .set('Accept', 'application/json')
+            .set({ Authorization: token })
             .send(body)
             .expect(400)
 
@@ -124,6 +133,7 @@ describe('adding blogs', () => {
         expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
     }, 20000)
     test('blogs without an url is not added', async () => {
+        const token = await helper.getUserToken()
         const body = {
             title: 'Testing',
             author: 'Edward',
@@ -132,6 +142,7 @@ describe('adding blogs', () => {
         await api
             .post('/api/blogs')
             .set('Accept', 'application/json')
+            .set({ Authorization: token })
             .send(body)
             .expect(400)
 
