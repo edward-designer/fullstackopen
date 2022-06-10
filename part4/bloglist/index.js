@@ -19,9 +19,14 @@ npm install
     dotenv (plus create .env at root)
     mongoose
     jest --save-dev
+        npm test -- -t "a specific note is within the returned notes"
+        npm test -- tests/note_api.test.js
+    supertest --save-dev
+    * mongodb-memory-server for mocking mongodb
 package.json
     "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js"
+        "start": "NODE_ENV=production node index.js",
+        "dev": "NODE_ENV=development nodemon index.js",
+        "test": "NODE_ENV=test jest --verbose --runInBand --forceExit", // --runInBand prevent Jest from running tests in parallel, --forceExit mongoose doesn't play well with jest for async tests
     }
 */
