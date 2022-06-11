@@ -23,6 +23,9 @@ npm install
         npm test -- tests/note_api.test.js
     supertest --save-dev
     * mongodb-memory-server for mocking mongodb
+    express-async-errors
+    bcrypt
+    jsonwebtoken
 package.json
     "scripts": {
         "start": "NODE_ENV=production node index.js",
