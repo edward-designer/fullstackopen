@@ -45,12 +45,8 @@ bloglistRouter.delete('/:id', async (request, response) => {
 })
 
 bloglistRouter.put('/:id', async (request, response) => {
-    const owner = await Blog.findById(request.params.id)
-    if(owner.user.toString() === request.user.id.toString()) {
-        await Blog.findByIdAndUpdate(request.params.id,{ likes: request.body.likes })
-        response.status(201).end()
-    }else{
-        response.status(401).json({ error: 'blog can only be deleted by creator' })
-    }
+    await Blog.findByIdAndUpdate(request.params.id,{ likes: request.body.likes })
+    response.status(201).end()
 })
+
 module.exports = bloglistRouter

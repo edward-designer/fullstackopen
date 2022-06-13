@@ -1,23 +1,33 @@
 import { useState, useEffect } from 'react'
-import Blog from './components/Blog'
+import Bloglist from './components/Bloglist'
+import Login from './components/Login'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  const [user, setUser] = useState([])
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, [])
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser([user.username, user.token])
+      blogService.setToken(user.token)
+    }
+  },[])
 
   return (
-    <div>
-      <h2>blogs</h2>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+    <div className="m-4">
+      <h1 className="text-4xl font-bold text-cyan-900 pb-2 my-4 border-b">Bloglist</h1>
+      <Notification message={message} setMessage={setMessage} />
+
+      {user.length===0?
+        <Login setUser={setUser} setMessage={setMessage} /> :
+        <Bloglist user={user} setUser={setUser} setMessage={setMessage} />
+      }
     </div>
+
   )
 }
 
