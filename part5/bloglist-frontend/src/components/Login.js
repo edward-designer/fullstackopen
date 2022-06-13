@@ -9,16 +9,17 @@ const Login = ({ setUser,setMessage }) => {
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-      const token =  await authService.logIn(username, password)
-      setUser([username,token])
+      const user =  await authService.logIn(username, password)
+      setUser([user.username,user.token,user.id])
       window.localStorage.setItem(
-        'loggedNoteappUser', JSON.stringify({ username,token })
+        'loggedNoteappUser', JSON.stringify({ username:user.username,token:user.token,id:user.id })
       )
-      blogService.setToken(token)
+      blogService.setToken(user.token)
       setUsername('')
       setPassword('')
       setMessage({ type:'success',message:'Login successful' })
     }catch (err) {
+      //console.error(err.message)
       setMessage({ type:'error',message:'Wrong credentials' })
     }
   }

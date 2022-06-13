@@ -58,15 +58,27 @@ const Bloglist = ({ user, setUser, setMessage }) => {
     }
   }
 
+  const addBlogHandler = async (title,author,url) => {
+    try {
+      const response = await blogService.create({ title,author,url })
+      const updatedBlogs = [...blogs,response]
+      setBlogs(updatedBlogs)
+      setMessage({ type:'success',message:`A new blog "${title}" added successfully` })
+      blogFormRef.current.toggleVisibility()
+    }catch (err) {
+      setMessage({ type:'error',message:'Something went wrong. Please try again.' })
+    }
+  }
 
-  const bloglist = sortBy === 'likes' ? blogs.sort((a,b) => b.likes-a.likes) : blogs.sort((a,b) => b.title>a.title?-1:1)
+  const bloglist = sortBy === 'likes' ? [...blogs].sort((a,b) => b.likes-a.likes) : [...blogs].sort((a,b) => b.title>a.title?-1:1)
+  /* sort alter the arr in place */
 
   return (
     <div>
       <h2>Blogs</h2>
       <p className="relative rounded my-2 bg-blue-100 p-1 text-blue-800 inline-block px-4">Hello, {user[0]} <Logout setUser={setUser} setMessage={setMessage} /></p>
       <Togglable buttonLabel="Add a new blog" ref={blogFormRef} >
-        <AddBlog setMessage={setMessage} blogs={blogs} setBlogs={setBlogs} blogFormRef={blogFormRef} />
+        <AddBlog setMessage={setMessage} addBlogHandler={addBlogHandler} blogFormRef={blogFormRef} />
       </Togglable>
       <p className="mb-4">Sort by: <span tabIndex="0" className={sortBy==='likes'?'text-blue-900 font-bold':'cursor-pointer text-blue-800 hover:text-blue-400'} onClick={() => {setSortBy('likes')}}>Likes</span> | <span tabIndex="0" className={sortBy==='title'?'text-blue-900 font-bold':'cursor-pointer text-blue-800 hover:text-blue-400'} onClick={() => {setSortBy('title')}}>Title</span>
       </p>

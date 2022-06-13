@@ -27,7 +27,6 @@ bloglistRouter.post('/', async (request, response) => {
         const result = await blog.save()
         user.blogs = user.blogs.concat(result.id)
         await user.save()
-
         response.status(201).json(result)
     }else{
         response.status(401).json({ error: 'no authorization token' })

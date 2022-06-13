@@ -12,13 +12,13 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      setUser([user.username, user.token])
+      setUser([user.username, user.token, user.id])
       blogService.setToken(user.token)
     }
   },[])
 
   return (
-    <div className="m-4">
+    <div className="m-4 max-w-2xl mx-auto">
       <h1 className="text-4xl font-bold text-cyan-900 pb-2 my-4 border-b">Bloglist</h1>
       <Notification message={message} setMessage={setMessage} />
 
