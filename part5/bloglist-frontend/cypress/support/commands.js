@@ -36,7 +36,7 @@ Cypress.Commands.add('login', ({ username, password }) => {
   })
 })
 
-Cypress.Commands.add('createBlog', ({ title, author, url, likes=0}) => {
+Cypress.Commands.add('createBlog', ({ title, author, url, likes=0 }) => {
   cy.request({
     url: 'http://localhost:3001/api/blogs',
     method: 'POST',

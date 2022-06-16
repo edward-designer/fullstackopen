@@ -70,7 +70,7 @@ const Bloglist = ({ user, setUser, setMessage }) => {
     }
   }
 
-  const bloglist = sortBy === 'likes' ? [...blogs].sort((a,b) => b.likes-a.likes) : [...blogs].sort((a,b) => b.title>a.title?-1:1)
+  const bloglist = sortBy === 'likes' ? [...blogs].sort((a,b) => b.likes-a.likes) : [...blogs].sort((a,b) => b.title.toLowerCase()>a.title.toLowerCase()?-1:1)
   /* sort alter the arr in place */
 
   return (
