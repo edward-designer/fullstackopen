@@ -1,0 +1,139 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are great",
+      "id": 1
+    },
+    {
+      "content": "the best featrure ever <3",
+      "id": 2
+    },
+    {
+      "content": "hello",
+      "id": 3
+    },
+    {
+      "content": "hello2",
+      "id": 4
+    },
+    {
+      "content": "f",
+      "id": 5
+    },
+    {
+      "content": "fdsfa",
+      "id": 6
+    },
+    {
+      "content": "f",
+      "id": 7
+    },
+    {
+      "content": "f",
+      "id": 8
+    },
+    {
+      "content": "143",
+      "id": 9
+    },
+    {
+      "content": "66\\",
+      "id": 10
+    },
+    {
+      "content": "fdas",
+      "id": 11
+    },
+    {
+      "content": "fasddas",
+      "id": 12
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "kaltsoon",
+      "number": "045-2323456",
+      "id": 2
+    },
+    {
+      "name": "edward",
+      "number": "999-393933",
+      "id": 3
+    },
+    {
+      "name": "fasd",
+      "number": "111",
+      "id": 4
+    },
+    {
+      "name": "fasd",
+      "number": "111",
+      "id": 5
+    },
+    {
+      "name": "fasd",
+      "number": "111",
+      "id": 6
+    },
+    {
+      "name": "fadf",
+      "number": "11111",
+      "id": 7
+    },
+    {
+      "name": "fda",
+      "number": "11",
+      "id": 8
+    },
+    {
+      "name": "ffff",
+      "number": "1",
+      "id": 9
+    },
+    {
+      "name": "fads",
+      "number": "fads",
+      "id": 10
+    },
+    {
+      "name": "141",
+      "number": "143",
+      "id": 11
+    },
+    {
+      "name": "f",
+      "number": "fads",
+      "id": 12
+    },
+    {
+      "name": "f",
+      "number": "fads",
+      "id": 13
+    },
+    {
+      "name": "fad",
+      "number": "111",
+      "id": 14
+    },
+    {
+      "name": "tes",
+      "number": "tes",
+      "id": 15
+    },
+    {
+      "name": "tes",
+      "number": "tes",
+      "id": 16
+    },
+    {
+      "name": "d",
+      "number": "d",
+      "id": 17
+    }
+  ]
+}
