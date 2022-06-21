@@ -1,6 +1,10 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setNotification } from '../reducers/notificationSlice'
 
-const AddBlog = ({ setMessage,addBlogHandler,blogFormRef }) => {
+const AddBlog = ({ addBlogHandler, blogFormRef }) => {
+  const dispatch = useDispatch()
+
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -8,19 +12,24 @@ const AddBlog = ({ setMessage,addBlogHandler,blogFormRef }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault()
     try {
-      addBlogHandler(title,author,url)
+      addBlogHandler(title, author, url)
       setTitle('')
       setAuthor('')
       setUrl('')
-    }catch (err) {
-      setMessage({ type:'error',message:'Something went wrong. Please try again.' })
+    } catch (err) {
+      dispatch(
+        setNotification({
+          type: 'error',
+          message: 'Something went wrong. Please try again.',
+        })
+      )
     }
   }
 
   return (
     <div className="border-y my-4 py-4">
       <h3 className="font-bold mb-4 text-blue-700">Add a new blog</h3>
-      <form onSubmit={onSubmitHandler} >
+      <form onSubmit={onSubmitHandler}>
         <div className="my-2">
           <label>
             <span className="inline-block w-14">title</span>
@@ -63,12 +72,19 @@ const AddBlog = ({ setMessage,addBlogHandler,blogFormRef }) => {
             />
           </label>
         </div>
-        <button className="btn-primary" type="submit" id="addBlog">Add</button>
-        <button className="btn-primary ml-2" type="button" onClick={() => blogFormRef.current.toggleVisibility()}>Cancel</button>
+        <button className="btn-primary" type="submit" id="addBlog">
+          Add
+        </button>
+        <button
+          className="btn-primary ml-2"
+          type="button"
+          onClick={() => blogFormRef.current.toggleVisibility()}
+        >
+          Cancel
+        </button>
       </form>
     </div>
   )
-
 }
 
 export default AddBlog

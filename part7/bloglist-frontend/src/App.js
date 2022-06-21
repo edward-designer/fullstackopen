@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+
+import Menu from './components/Menu'
+import NotFound from './components/NotFound'
 import Bloglist from './components/Bloglist'
 import Login from './components/Login'
-import Notification from './components/Notification'
+import Users from './components/Users'
+import User from './components/User'
+import BlogDetails from './components/BlogDetails'
+
 import blogService from './services/blogs'
 
 const App = () => {
   const [user, setUser] = useState([])
-  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
@@ -15,19 +21,35 @@ const App = () => {
       setUser([user.username, user.token, user.id])
       blogService.setToken(user.token)
     }
-  },[])
+  }, [])
 
   return (
-    <div className="m-4 max-w-2xl mx-auto">
-      <h1 className="text-4xl font-bold text-cyan-900 pb-2 my-4 border-b">Bloglist</h1>
-      <Notification message={message} setMessage={setMessage} />
-
-      {user.length===0?
-        <Login setUser={setUser} setMessage={setMessage} /> :
-        <Bloglist user={user} setUser={setUser} setMessage={setMessage} />
-      }
-    </div>
-
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Menu user={user} setUser={setUser} />}>
+          <Route
+            index
+            element={
+              user.length === 0 ? (
+                <Navigate replace to="/login" />
+              ) : (
+                <Bloglist user={user} setUser={setUser} />
+              )
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              user.length === 0 ? <Navigate replace to="/login" /> : <Users />
+            }
+          />
+          <Route path="/user/:id" element={<User />} />
+          <Route path="/blog/:id" element={<BlogDetails />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

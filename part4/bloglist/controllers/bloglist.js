@@ -48,4 +48,10 @@ bloglistRouter.put('/:id', async (request, response) => {
     response.status(201).end()
 })
 
+/*comments*/
+bloglistRouter.post('/:id/comments', async (request, response) => {
+    await Blog.findByIdAndUpdate(request.params.id,{ $push: { comments: request.body.comments } },{ upsert: true, new : true })
+    response.status(201).end()
+})
+
 module.exports = bloglistRouter
